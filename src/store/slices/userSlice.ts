@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { AsyncThunk, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { AUTH_URL, HEADERS_WITH_AUTH } from "../../utils/consts";
 import { RootState } from "..";
 import { IUserExtended } from "../../utils/types";
@@ -13,7 +13,7 @@ const initialState: IUserState = {
   error: "",
 };
 
-export const getProfile = createAsyncThunk("/users/me", async () => {
+export const getProfile= createAsyncThunk("/users/me", async () => {
   const response = await fetch(`${AUTH_URL}/users/me`, {
     headers: HEADERS_WITH_AUTH,
   }).then((res) => (res.ok ? res.json() : Promise.reject(res.status)));

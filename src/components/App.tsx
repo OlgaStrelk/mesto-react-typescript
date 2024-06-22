@@ -14,7 +14,6 @@ import Register from "./Register";
 import InfoTooltip from "./InfoTooltip";
 import ProtectedRoute from "./ProtectedRoute";
 import {
-  getProfile,
   getInitialCards,
   editProfile,
   changeUserPic,
@@ -25,7 +24,11 @@ import {
 import { authorize, checkToken, register } from "../utils/authApi";
 import { IAuth, IUser } from "../utils/types";
 import { useAppDispatch, useAppSelector } from "../hooks";
-import { selectUserId } from "../store/slices/userSlice";
+import {
+  getProfile,
+  selectStatus,
+  selectUserId,
+} from "../store/slices/userSlice";
 
 function App() {
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
@@ -40,14 +43,16 @@ function App() {
   const [email, setEmail] = useState("");
   const navigate = useNavigate();
   const userId = useAppSelector(selectUserId);
+  const userStatus = useAppSelector((state) => state.user.status);
+  const error = useAppSelector((state) => state.user.error);
+
   const dispatch = useAppDispatch();
   useEffect(() => {
-    // if (userStatus === '') {
-    dispatch(getProfile());
-
-    // console.log(`При загрузке данных пользователя: ${err}`)
-    // }
-  }, [dispatch]);
+    if (userStatus === "idle") {
+      dispatch(getProfile());
+    }
+    if (error) console.log(`При загрузке данных пользователя: ${error}`);
+  }, [userStatus, dispatch, error]);
 
   useEffect(() => {
     if (isLoggedIn) {

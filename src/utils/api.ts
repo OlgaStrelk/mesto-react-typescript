@@ -1,10 +1,10 @@
 import { BASE_URL, HEADERS_WITH_AUTH } from "./consts";
 
-export const getProfile = () => {
-  return fetch(`${BASE_URL}/users/me`, {
-    headers: HEADERS_WITH_AUTH,
-  }).then((res) => (res.ok ? res.json() : Promise.reject(res.status)));
-};
+// export const getProfile = () => {
+//   return fetch(`${BASE_URL}/users/me`, {
+//     headers: HEADERS_WITH_AUTH,
+//   }).then((res) => (res.ok ? res.json() : Promise.reject(res.status)));
+// };
 
 export const getInitialCards = () => {
   return fetch(`${BASE_URL}/cards`, {
