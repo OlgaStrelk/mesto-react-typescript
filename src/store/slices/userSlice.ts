@@ -1,6 +1,6 @@
-import { AsyncThunk, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { AUTH_URL, HEADERS_WITH_AUTH } from "../../utils/consts";
-import { RootState } from "..";
+import { RootState, store } from "..";
 import { IUserExtended } from "../../utils/types";
 export interface IUserState {
   user: IUserExtended;
@@ -13,11 +13,12 @@ const initialState: IUserState = {
   error: "",
 };
 
-export const getProfile= createAsyncThunk("/users/me", async () => {
+export const getProfile = createAsyncThunk("/users/me", async () => {
   const response = await fetch(`${AUTH_URL}/users/me`, {
     headers: HEADERS_WITH_AUTH,
-  }).then((res) => (res.ok ? res.json() : Promise.reject(res.status)));
-  return response;
+  });
+  return (await response.json()) as IUserExtended;
+
 });
 const userSlice = createSlice({
   name: "user",
@@ -41,6 +42,9 @@ const userSlice = createSlice({
       });
   },
 });
+// const lastReturnedAction = await store.dispatch(getProfile())
+
+
 
 export const {} = userSlice.actions;
 

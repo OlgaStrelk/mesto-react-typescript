@@ -1,4 +1,4 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore, createAsyncThunk } from "@reduxjs/toolkit";
 import userSlice from "./slices/userSlice";
 
 export const store = configureStore({
@@ -9,3 +9,8 @@ export const store = configureStore({
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
+
+// export const createAppAsyncThunk = createAsyncThunk.withTypes<{
+//   state: RootState
+//   dispatch: AppDispatch
+// }>()
