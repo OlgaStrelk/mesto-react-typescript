@@ -26,7 +26,7 @@ import { IAuth, IUser } from "../utils/types";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import {
   getProfile,
-  selectStatus,
+  lastReturnedAction,
   selectUserId,
 } from "../store/slices/userSlice";
 
@@ -52,7 +52,7 @@ function App() {
       dispatch(getProfile());
     }
     if (error) console.log(`При загрузке данных пользователя: ${error}`);
-  }, [userStatus, dispatch, error]);
+  }, [dispatch]);
 
   useEffect(() => {
     if (isLoggedIn) {
