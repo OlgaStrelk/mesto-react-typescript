@@ -159,7 +159,6 @@ function Home() {
 
 
   return (
-    <div className="App">
       <div className="page">
         <div className="page__container">
           <Header />
@@ -179,7 +178,6 @@ function Home() {
             onClose={closeAllPopups}
             status={tooltipStatus}
           />
-        </div>
       </div>
       {/* <PopupWithForm
         title="Вы уверены?"

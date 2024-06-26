@@ -1,10 +1,8 @@
-import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import "../index.css";
 
 import { PATHS } from "../utils/consts";
 import { OnlyAuth, OnlyUnAuth } from "./protected-route";
-import Login from "./Login";
-import Register from "./Register";
 import Home from "../pages/home";
 import { authorize, register } from "../utils/authApi";
 import { IAuth } from "../utils/types";
@@ -12,12 +10,12 @@ import { useEffect, useState } from "react";
 import PageNotFound from "./PageNotFound";
 import { useDispatch } from "react-redux";
 import { checkUserAuth } from "../store/slices/userSlice";
+import RegisterPage from "../pages/register";
+import LoginPage from "../pages/login";
 
 function App() {
   const navigate = useNavigate();
-  const dispatch = useDispatch()
-  const [email, setEmail] = useState("");
-  const [isLoggedIn, setLoggedIn] = useState(false);
+  const dispatch = useDispatch();
   const [tooltipStatus, setTooltipStatus] = useState({
     text: "",
     iconType: "",
@@ -45,8 +43,6 @@ function App() {
   const onLogin = ({ email, password }: IAuth) => {
     authorize(email, password)
       .then(() => {
-        setLoggedIn(true);
-        setEmail(email);
         navigate(PATHS.home);
       })
       .catch(() => {
@@ -62,18 +58,17 @@ function App() {
 
       <Route
         path={PATHS.register}
-        element={<OnlyUnAuth component={<Register onRegister={onRegister} />} />}
+        element={<OnlyUnAuth component={<RegisterPage />} />}
       />
 
       <Route
         path={PATHS.login}
-        element={<OnlyUnAuth component={<Login onLogin={onLogin} />} />}
+        element={<OnlyUnAuth component={<LoginPage />} />}
       />
 
-      <Route path="*" element={<PageNotFound/>}/>
+      <Route path="*" element={<PageNotFound />} />
     </Routes>
   );
 }
 
 export default App;
-

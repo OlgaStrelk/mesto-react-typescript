@@ -2,16 +2,16 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { PATHS } from "../utils/consts";
 
-function Register() {
+function RegisterPage() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
 
-  function handleEmailChange(evt) {
-    setEmail(evt.target.value);
+  function handleEmailChange(e) {
+    setEmail(e.target.value);
   }
 
-  function handlePasswordChange(evt) {
-    setPassword(evt.target.value);
+  function handlePasswordChange(e) {
+    setPassword(e.target.value);
   }
 
   function handleSubmit(e) {
@@ -19,7 +19,8 @@ function Register() {
     // onRegister({ email, password });
   }
   return (
-
+    <div className="page">
+      <div className="page__container">
         <div className="auth-form">
           <form className="auth-form__form" onSubmit={handleSubmit}>
             <div className="auth-form__container">
@@ -60,8 +61,9 @@ function Register() {
             </div>
           </form>
         </div>
-
+      </div>
+    </div>
   );
 }
 
-export default Register;
+export default RegisterPage;
