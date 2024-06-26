@@ -2,12 +2,12 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { PATHS } from "../utils/consts";
 import { useAppDispatch, useAppSelector } from "../hooks";
-import { signOut } from "../store/slices/userSlice";
+import { selectUserId, signOut } from "../store/slices/userSlice";
 
 function Header() {
   const dispatch = useAppDispatch()
   const [isMenuOpen, setMenuOpen] = React.useState(false);
-  const { _id: email } = useAppSelector((state) => state.user.user);
+  const email = useAppSelector(selectUserId);
 
   function toggleMenu() {
     setMenuOpen(!isMenuOpen);

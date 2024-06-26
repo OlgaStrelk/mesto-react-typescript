@@ -11,7 +11,7 @@ import {
   deleteCard,
 } from "../utils/api";
 import { authorize, checkToken, register } from "../utils/authApi";
-import { IAuth, IUser } from "../utils/types";
+import { IUser } from "../utils/types";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { getProfile, selectUserId } from "../store/slices/userSlice";
 import { PATHS } from "../utils/consts";
@@ -50,16 +50,14 @@ function Home() {
   }, [dispatch]);
 
   useEffect(() => {
-    if (isLoggedIn) {
-      getInitialCards()
-        .then((data) => {
-          setCards(data);
-        })
-        .catch((err) =>
-          console.log(`При загрузке первоначального массива карточек: ${err}`)
-        );
-    }
-  }, [isLoggedIn]);
+    getInitialCards()
+      .then((data) => {
+        setCards(data);
+      })
+      .catch((err) =>
+        console.log(`При загрузке первоначального массива карточек: ${err}`)
+      );
+  }, []);
 
   useEffect(() => {
     const token = localStorage.getItem("jwt");
@@ -155,29 +153,26 @@ function Home() {
       .catch((err) => console.log(`При удалении карточки: ${err}`));
   };
 
-
-
-
   return (
-      <div className="page">
-        <div className="page__container">
-          <Header />
-          <Main
-            cards={cards}
-            onEditeProfile={handleEditProfileClick}
-            onEditAvatar={handleEditAvatarClick}
-            onAddPlace={handleAddPlaceClick}
-            onCardClick={handleCardClick}
-            onCardLike={handleCardLike}
-            selectedCard={selectedCard}
-            onCardDelete={handleCardDeleteRequest}
-          />
-          <Footer />
-          <InfoTooltip
-            isOpen={!!tooltipStatus}
-            onClose={closeAllPopups}
-            status={tooltipStatus}
-          />
+    <div className="page">
+      <div className="page__container">
+        <Header />
+        <Main
+          cards={cards}
+          onEditeProfile={handleEditProfileClick}
+          onEditAvatar={handleEditAvatarClick}
+          onAddPlace={handleAddPlaceClick}
+          onCardClick={handleCardClick}
+          onCardLike={handleCardLike}
+          selectedCard={selectedCard}
+          onCardDelete={handleCardDeleteRequest}
+        />
+        <Footer />
+        <InfoTooltip
+          isOpen={!!tooltipStatus}
+          onClose={closeAllPopups}
+          status={tooltipStatus}
+        />
       </div>
       {/* <PopupWithForm
         title="Вы уверены?"

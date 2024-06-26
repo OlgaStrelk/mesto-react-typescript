@@ -1,7 +1,7 @@
 import { AsyncThunk, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { BASE_URL, HEADERS_WITH_AUTH } from "../../utils/consts";
 import { RootState } from "..";
-import { IUserExtended } from "../../utils/types";
+import { IUserExtended, IUserResponse } from "../../utils/types";
 export interface IUserState {
   user: IUserExtended | null;
   status: "idle" | "loading" | "succeeded" | "failed";
@@ -14,13 +14,13 @@ const initialState: IUserState = {
   error: "",
   isAuthChecked: false,
 };
-export const getProfile: AsyncThunk<IUserExtended, void, { state: RootState }> =
+export const getProfile: AsyncThunk<IUserResponse, void, { state: RootState }> =
   createAsyncThunk("/user/fetch", async () => {
     const response = await fetch(`${BASE_URL}/users/me`, {
       method: "GET",
       headers: HEADERS_WITH_AUTH,
     });
-    return (await response.json()) as IUserExtended;
+    return (await response.json()) as IUserResponse;
   });
 
 const userSlice = createSlice({
@@ -30,7 +30,9 @@ const userSlice = createSlice({
     checkUserAuth: (state) => {
       state.isAuthChecked = true;
     },
-    signOut:(state)=>{state.user=initialState.user}
+    signOut: (state) => {
+      state.user = initialState.user;
+    },
   },
   extraReducers(builder) {
     builder
@@ -39,7 +41,7 @@ const userSlice = createSlice({
       })
       .addCase(getProfile.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.user = action.payload;
+        state.user = { ...action.payload, email: "" };
       })
       .addCase(getProfile.rejected, (state, action) => {
         state.status = "failed";
@@ -53,5 +55,5 @@ export const { checkUserAuth, signOut } = userSlice.actions;
 export default userSlice.reducer;
 
 export const selectUser = (state: RootState) => state.user.user;
-export const selectUserId = (state: RootState) => state.user.user._id;
+export const selectUserId = (state: RootState) => state.user.user?._id;
 // export const lastReturnedAction = await store.dispatch(getProfile())

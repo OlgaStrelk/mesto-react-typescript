@@ -7,9 +7,12 @@ export interface IUser {
   about: string;
 }
 
-export interface IUserExtended extends IUser {
+export interface IUserResponse extends IUser {
   avatar: string;
   _id: string;
   cohort: string;
 }
 
+export interface IUserExtended extends IUserResponse {
+  email: string;
+}
