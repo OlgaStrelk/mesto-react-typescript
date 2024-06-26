@@ -2,7 +2,6 @@ import { ReactNode } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import { PATHS } from "../utils/consts";
 import { useAppSelector } from "../hooks";
-import Preloader from "../preloader/preloader";
 
 interface IProtectedRoute {
   onlyUnAuth?: boolean;
@@ -14,7 +13,7 @@ const ProtectedRoute = ({ onlyUnAuth = false, component }: IProtectedRoute) => {
   const location = useLocation();
 
   if (!isAuthChecked) {
-    return <Preloader />;
+    return null
   }
 
   if (onlyUnAuth && user) {

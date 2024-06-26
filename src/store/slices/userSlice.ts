@@ -6,14 +6,13 @@ export interface IUserState {
   user: IUserExtended;
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null;
-  isAuthChecked: boolean
+  isAuthChecked: boolean;
 }
 const initialState: IUserState = {
   user: { name: "", about: "", avatar: "", _id: "", cohort: "" },
   status: "idle",
   error: "",
   isAuthChecked: false,
-
 };
 export const getProfile: AsyncThunk<IUserExtended, void, { state: RootState }> =
   createAsyncThunk("/user/fetch", async () => {
@@ -27,7 +26,11 @@ export const getProfile: AsyncThunk<IUserExtended, void, { state: RootState }> =
 const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    checkUserAuth: (state) => {
+      state.isAuthChecked = true;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(getProfile.pending, (state) => {
@@ -44,7 +47,7 @@ const userSlice = createSlice({
   },
 });
 
-export const {} = userSlice.actions;
+export const { checkUserAuth } = userSlice.actions;
 
 export default userSlice.reducer;
 
