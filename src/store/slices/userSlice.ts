@@ -3,13 +3,13 @@ import { BASE_URL, HEADERS_WITH_AUTH } from "../../utils/consts";
 import { RootState } from "..";
 import { IUserExtended } from "../../utils/types";
 export interface IUserState {
-  user: IUserExtended;
+  user: IUserExtended | null;
   status: "idle" | "loading" | "succeeded" | "failed";
   error: string | null;
   isAuthChecked: boolean;
 }
 const initialState: IUserState = {
-  user: { name: "", about: "", avatar: "", _id: "", cohort: "" },
+  user: null,
   status: "idle",
   error: "",
   isAuthChecked: false,
@@ -30,6 +30,7 @@ const userSlice = createSlice({
     checkUserAuth: (state) => {
       state.isAuthChecked = true;
     },
+    signOut:(state)=>{state.user=initialState.user}
   },
   extraReducers(builder) {
     builder
@@ -47,7 +48,7 @@ const userSlice = createSlice({
   },
 });
 
-export const { checkUserAuth } = userSlice.actions;
+export const { checkUserAuth, signOut } = userSlice.actions;
 
 export default userSlice.reducer;
 

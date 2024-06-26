@@ -1,9 +1,11 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { PATHS } from "../utils/consts";
-import { useAppSelector } from "../hooks";
+import { useAppDispatch, useAppSelector } from "../hooks";
+import { signOut } from "../store/slices/userSlice";
 
-function Header({ onSignOut }) {
+function Header() {
+  const dispatch = useAppDispatch()
   const [isMenuOpen, setMenuOpen] = React.useState(false);
   const { _id: email } = useAppSelector((state) => state.user.user);
 
@@ -16,6 +18,12 @@ function Header({ onSignOut }) {
   const isHome = pathname === home;
   const headerClass = `header  ${isMenuOpen ? "header_menu-open" : ""} 
     ${isHome ? "header_page-main" : ""}`;
+
+    const onSignOut = () => {
+      dispatch(signOut())
+      localStorage.removeItem("jwt");
+    };
+
   return (
     <header className={headerClass}>
       <div className="header__logo"></div>

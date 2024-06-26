@@ -156,17 +156,13 @@ function Home() {
   };
 
 
-  const onSignOut = () => {
-    localStorage.removeItem("jwt");
-    setLoggedIn(false);
-    navigate(PATHS.login);
-  };
+
 
   return (
     <div className="App">
       <div className="page">
         <div className="page__container">
-          <Header email={email} onSignOut={onSignOut} />
+          <Header />
           <Main
             cards={cards}
             onEditeProfile={handleEditProfileClick}
