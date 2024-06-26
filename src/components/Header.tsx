@@ -8,7 +8,7 @@ function Header({ email, onSignOut }) {
     setMenuOpen(!isMenuOpen);
   }
   let isMain;
-  // const isMain = useRouteMatch({ path: "/", exact: true });
+  // const isMain = useRouteMatch({ path: {PATHS.home}, exact: true });
 
   return (
     <header
@@ -17,7 +17,7 @@ function Header({ email, onSignOut }) {
     >
       <div className="header__logo"></div>
       {/* <Routes>
-        <Route path="/"> */}
+        <Route path={PATHS.home}> */}
       <button
         className="header__burger"
         type="button"
@@ -31,12 +31,12 @@ function Header({ email, onSignOut }) {
         </button>
       </div>
       {/* </Route> */}
-      {/* <Route path="/sign-up">
-          <Link className="header__auth-link" to="sign-in">
+      {/* <Route path={PATHS.register}>
+          <Link className="header__auth-link" to={PATHS.login}>
             Войти
           </Link>
         </Route>
-        <Route path="/sign-in">
+        <Route path={PATHS.login}>
           <Link className="header__auth-link" to="sign-up">
             Регистрация
           </Link>

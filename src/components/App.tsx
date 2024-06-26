@@ -29,6 +29,7 @@ import {
   lastReturnedAction,
   selectUserId,
 } from "../store/slices/userSlice";
+import { PATHS } from "../utils/consts";
 
 function App() {
   const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
@@ -73,7 +74,7 @@ function App() {
         .then((res: { data: { email: SetStateAction<string> } }) => {
           setEmail(res.data.email);
           setLoggedIn(true);
-          navigate("/");
+          navigate(PATHS.home);
         })
         .catch(() => {
           localStorage.removeItem("jwt");
@@ -163,7 +164,7 @@ function App() {
   const onRegister = ({ email, password }: IAuth) => {
     register(email, password)
       .then(() => {
-        navigate("/sign-in");
+        navigate(PATHS.login);
         setTooltipStatus({
           text: "Вы успешно зарегистрировались",
           iconType: "success",
@@ -182,7 +183,7 @@ function App() {
       .then(() => {
         setLoggedIn(true);
         setEmail(email);
-        navigate("/");
+        navigate(PATHS.home);
       })
       .catch(() => {
         setTooltipStatus({
@@ -195,7 +196,7 @@ function App() {
   const onSignOut = () => {
     localStorage.removeItem("jwt");
     setLoggedIn(false);
-    navigate("/sign-in");
+    navigate(PATHS.login);
   };
 
   return (
@@ -206,11 +207,11 @@ function App() {
           <Routes>
             {/* <ProtectedRoute
                 exact
-                path="/"
+                path=PATHS.home
                 loggedIn={isLoggedIn}
               > */}
             <Route
-              path="/"
+              path={PATHS.home}
               element={
                 <Main
                   cards={cards}
@@ -228,14 +229,14 @@ function App() {
             {/* </ProtectedRoute> */}
 
             <Route
-              path="/sign-up"
+              path={PATHS.register}
               element={<Register onRegister={onRegister} />}
             />
 
-            <Route path="/sign-in" element={<Login onLogin={onLogin} />} />
+            <Route path=PATHS.login element={<Login onLogin={onLogin} />} />
 
             {/* <Route path="*">
-                {isLoggedIn ? <Navigate to="/" /> : <Navigate to="/sign-in" />}
+                {isLoggedIn ? <Navigate to={PATHS.home} /> : <Navigate to=PATHS.login />}
               </Route> */}
           </Routes>
           {/* <PopupWithForm

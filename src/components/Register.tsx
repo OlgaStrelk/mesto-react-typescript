@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { PATHS } from "../utils/consts";
 
 function Register({ onRegister }) {
   const [email, setEmail] = React.useState("");
@@ -51,7 +52,7 @@ function Register({ onRegister }) {
           </button>
           <p className="auth-form__text">
             Уже зарегистрированы?
-            <Link className="auth-form__link" to="/sign-in">
+            <Link className="auth-form__link" to={PATHS.login}>
               Войти
             </Link>
           </p>
