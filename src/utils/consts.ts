@@ -6,4 +6,4 @@ export const HEADERS_WITH_AUTH = {
 
 export const AUTH_URL = "https://auth.nomoreparties.co";
 
-export const PATHS = { home: "/", register: "/sign-up", login: "/sign-in" };
+export const PATHS = { home: "/mesto-react-typescript/", register: "/mesto-react-typescript/sign-up", login: "/mesto-react-typescript/sign-in" };

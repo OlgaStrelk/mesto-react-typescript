@@ -3,6 +3,8 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://olgastrelk.github.io/mesto-react-typescript",
+
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",

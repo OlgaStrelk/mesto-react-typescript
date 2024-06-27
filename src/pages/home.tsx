@@ -1,5 +1,4 @@
 import { useState, useEffect, SetStateAction } from "react";
-import { useNavigate } from "react-router-dom";
 import "../index.css";
 
 import {
@@ -10,7 +9,7 @@ import {
   changeLikeCardStatus,
   deleteCard,
 } from "../utils/api";
-import { authorize, checkToken, register } from "../utils/authApi";
+import { checkToken } from "../utils/authApi";
 import { IUser } from "../utils/types";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { getProfile, selectUserId } from "../store/slices/userSlice";
@@ -36,7 +35,6 @@ function Home() {
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [tooltipStatus, setTooltipStatus] = useState();
   const [email, setEmail] = useState("");
-  const navigate = useNavigate();
   const userId = useAppSelector(selectUserId);
   const userStatus = useAppSelector((state) => state.user.status);
   const error = useAppSelector((state) => state.user.error);
@@ -65,8 +63,7 @@ function Home() {
       checkToken(token)
         .then((res: { data: { email: SetStateAction<string> } }) => {
           setEmail(res.data.email);
-          setLoggedIn(true);
-          navigate(PATHS.home);
+          // navigate(PATHS.home);
         })
         .catch(() => {
           localStorage.removeItem("jwt");
@@ -154,26 +151,24 @@ function Home() {
   };
 
   return (
-    <div className="page">
-      <div className="page__container">
-        <Header />
-        <Main
-          cards={cards}
-          onEditeProfile={handleEditProfileClick}
-          onEditAvatar={handleEditAvatarClick}
-          onAddPlace={handleAddPlaceClick}
-          onCardClick={handleCardClick}
-          onCardLike={handleCardLike}
-          selectedCard={selectedCard}
-          onCardDelete={handleCardDeleteRequest}
-        />
-        <Footer />
-        <InfoTooltip
-          isOpen={!!tooltipStatus}
-          onClose={closeAllPopups}
-          status={tooltipStatus}
-        />
-      </div>
+    <>
+      {" "}
+      <Main
+        cards={cards}
+        onEditeProfile={handleEditProfileClick}
+        onEditAvatar={handleEditAvatarClick}
+        onAddPlace={handleAddPlaceClick}
+        onCardClick={handleCardClick}
+        onCardLike={handleCardLike}
+        selectedCard={selectedCard}
+        onCardDelete={handleCardDeleteRequest}
+      />
+      <Footer />
+      <InfoTooltip
+        isOpen={!!tooltipStatus}
+        onClose={closeAllPopups}
+        status={tooltipStatus}
+      />
       {/* <PopupWithForm
         title="Вы уверены?"
         name="delete-card"
@@ -198,7 +193,7 @@ function Home() {
         onUpdateAvatar={handleUpdateAvatar}
       />
       <ImagePopup selectedCard={selectedCard} onClose={closeAllPopups} /> */}
-    </div>
+    </>
   );
 }
 
