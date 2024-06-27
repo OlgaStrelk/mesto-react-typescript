@@ -2,8 +2,8 @@ import { useState } from "react";
 import { PATHS } from "../utils/consts";
 import { IAuth } from "../utils/types";
 import { authorize } from "../utils/authApi";
-import Redirect from "../components/auth-form/redirect/Redirect";
-import AuthForm from "../components/auth-form/AuthForm";
+import Redirect from "../components/auth-form/redirect/redirect";
+import AuthForm from "../components/auth-form/auth-form";
 
 function LoginPage() {
   const [email, setEmail] = useState("");

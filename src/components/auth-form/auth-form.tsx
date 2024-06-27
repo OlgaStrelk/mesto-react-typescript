@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Input from "../Input";
+import Input from "./input/input";
 
 function AuthForm({ handleSubmit, children, title, button }) {
   const [email, setEmail] = useState("");

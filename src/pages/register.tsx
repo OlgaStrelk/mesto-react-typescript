@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { PATHS } from "../utils/consts";
 import { register } from "../utils/authApi";
 import { IAuth } from "../utils/types";
-import AuthForm from "../components/auth-form/AuthForm";
-import Redirect from "../components/auth-form/redirect/Redirect";
+import AuthForm from "../components/auth-form/auth-form";
+import Redirect from "../components/auth-form/redirect/redirect";
 
 function RegisterPage() {
   const [email, setEmail] = React.useState("");
