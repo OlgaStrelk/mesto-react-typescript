@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from "../hooks";
 import { selectUserId, signOut } from "../store/slices/userSlice";
 
 function Header() {
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
   const [isMenuOpen, setMenuOpen] = React.useState(false);
   const email = useAppSelector(selectUserId);
 
@@ -13,20 +13,22 @@ function Header() {
     setMenuOpen(!isMenuOpen);
   }
   const { pathname } = useLocation();
-  const { home, register } = PATHS;
+  const { home, register, login } = PATHS;
 
   const isHome = pathname === home;
   const headerClass = `header  ${isMenuOpen ? "header_menu-open" : ""} 
     ${isHome ? "header_page-main" : ""}`;
 
-    const onSignOut = () => {
-      dispatch(signOut())
-      localStorage.removeItem("jwt");
-    };
+  const onSignOut = () => {
+    dispatch(signOut());
+    localStorage.removeItem("jwt");
+  };
 
   return (
     <header className={headerClass}>
-      <div className="header__logo"></div>
+      <Link to={home}>
+        <div className="header__logo"></div>
+      </Link>
       {isHome ? (
         <>
           <button
@@ -43,11 +45,11 @@ function Header() {
           </div>
         </>
       ) : pathname === register ? (
-        <Link className="header__auth-link" to={PATHS.login}>
+        <Link className="header__auth-link" to={login}>
           Войти
         </Link>
       ) : (
-        <Link className="header__auth-link" to="sign-up">
+        <Link className="header__auth-link" to={register}>
           Регистрация
         </Link>
       )}
