@@ -21,27 +21,22 @@ function App() {
 
   return (
     <div className="page">
-      <div className="page__container">
-        <Header />
-        <Routes>
-          <Route
-            path={PATHS.home}
-            element={<OnlyAuth component={<Home />} />}
-          />
+      <Header />
+      <Routes>
+        <Route path={PATHS.home} element={<OnlyAuth component={<Home />} />} />
 
-          <Route
-            path={PATHS.register}
-            element={<OnlyUnAuth component={<RegisterPage />} />}
-          />
+        <Route
+          path={PATHS.register}
+          element={<OnlyUnAuth component={<RegisterPage />} />}
+        />
 
-          <Route
-            path={PATHS.login}
-            element={<OnlyUnAuth component={<LoginPage />} />}
-          />
+        <Route
+          path={PATHS.login}
+          element={<OnlyUnAuth component={<LoginPage />} />}
+        />
 
-          <Route path="*" element={<PageNotFound />} />
-        </Routes>
-      </div>
+        <Route path="*" element={<PageNotFound />} />
+      </Routes>
     </div>
   );
 }

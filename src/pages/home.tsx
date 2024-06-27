@@ -150,7 +150,6 @@ function Home() {
 
   return (
     <>
-      {" "}
       <Main
         cards={cards}
         onEditeProfile={handleEditProfileClick}
